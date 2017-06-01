@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>디즈니 틀린그림 찾기 Step1</title>
+<link rel="stylesheet" type="text/css" href="css/global.css"
+	media="screen">
+<style>
+#wrap .frame img.pointNose {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	z-index: 100
+}
+
+#wrap .frame img.pointHair {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	z-index: 100
+}
+
+#wrap .frame img.pointButton {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	z-index: 100
+}
+
+#wrap .frame img.stopCurtain {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	z-index: 100
+}
+</style>
+<script src="js/jquery-1.10.2.min.js">
+	
+</script>
+<script src="js/game.js" type="javascript"></script>
+<script>
+	/* Time Prograss Bar */
+	var setId;
+	var width = 1;
+
+	/* 변 수 선 언  */
+	//var time = 0; // 제한시간 변수 생성
+	var hint = 1; // 힌트  상수 생성 1로 고정
+	var answerCnt = 0; // 정답 수를 체크하기 위한 변수
+	var answerChk = new Array(); // 이미 맞춘것과 안맞춘것을 구분하기 위한 boolean값 배열(이걸 활용해서 힌트를 줄 예정)
+	const
+	maxAnswer = 3;
+	/*
+	   2차배열 선언 예시
+	   answerStage01[0][0] = 30; // x축 왼쪽
+	   answerStage01[0][1] = 60; // x축 오른쪽
+	   answerStage01[0][2] = 30; // y축 아래쪽
+	   answerStage01[0][3] = 60; // y축 위쪽
+	 */
+	var clickX = 0;
+	var clickY = 0;
+
+	var isAnswer = false;
+
+	/* Play */
+	function move() {
+
+		var elem = document.getElementById("myBar");
+
+		setId = setInterval(frame, 100);
+
+		function frame() {
+			if (width < 100) {
+				width++;
+				elem.style.width = width + '%';
+
+			} else if (width >= 100) {
+				clearInterval(setId);
+				alert("Time out!!!");
+				location.href = 'index.html';
+			}
+		}
+		$('.stopCurtain').css("z-index", "10000");
+		$('.stopCurtain').fadeOut();
+	}
+	/* Stop */
+	function stop() {
+		clearInterval(setId);
+		$('.stopCurtain').fadeIn();
+		$('.stopCurtain').css("display", "block");
+		$('.stopCurtain').css("z-index", "20000");
+	}
+
+	//힌트 
+	function hintA() {
+		if (hint >= 1) {
+			if (answerChk[0] == null) {
+				answerChk[0] = true;
+				answerCnt++;
+				$('.pointNose').fadeIn();
+				$('.pointNose').css("display", "block");
+				$('.pointNose').css("z-index", "10000");
+				$('.score').html(answerCnt);
+				if (answerCnt == maxAnswer) {
+					setTimeout(function() {
+						alert('스테이지 클리어!!');
+						location.href = 'step02.html';
+					}, 500);
+				}
+				isAnswer = true;
+				--hint;
+				$('.hintNum').html(hint);
+			} else if (answerChk[1] == null) {
+				answerChk[1] = true;
+				answerCnt++;
+				$('.pointHair').fadeIn();
+				$('.pointHair').css("display", "block");
+				$('.pointHair').css("z-index", "10000");
+				$('.score').html(answerCnt);
+				if (answerCnt == maxAnswer) {
+					setTimeout(function() {
+						alert('스테이지 클리어!!');
+						location.href = 'step02.html';
+					}, 500);
+				}
+				isAnswer = true;
+				--hint;
+				$('.hintNum').html(hint);
+			} else if (answerChk[2] == null) {
+				answerChk[2] = true;
+				answerCnt++;
+				$('.pointButton').fadeIn();
+				$('.pointButton').css("display", "block");
+				$('.pointButton').css("z-index", "10000");
+				$('.score').html(answerCnt);
+				if (answerCnt == maxAnswer) {
+					setTimeout(function() {
+						alert('스테이지 클리어!!');
+						location.href = 'step02.html';
+					}, 500);
+				}
+				isAnswer = true;
+				--hint;
+				$('.hintNum').html(hint);
+			}
+		}
+
+	}
+
+	$(function() { //----좌표값찾기----- 
+		var area = $('.frame');
+		var obj = document.getElementsByClassName("frame");
+		area.click(function(event) {
+			x = clickX = event.offsetX;
+			y = clickY = event.offsetY;
+			clickChk();
+			//alert('x좌표:' + x + ', y좌표:' + y);
+		});
+
+	});
+
+	var clickNose = function() {
+		//alert("코!!");
+		//clickX = event.clientX;
+		answerChk[0] = true;
+		answerCnt++;
+		$('.pointNose').fadeIn();
+		$('.pointNose').css("display", "block");
+		$('.pointNose').css("z-index", "10000");
+		$('.score').html(answerCnt);
+		if (answerCnt == maxAnswer) {
+			setTimeout(function() {
+				alert('스테이지 클리어!!');
+				location.href = 'step02.html';
+			}, 500);
+		}
+		isAnswer = true;
+	};
+	var clickHair = function() {
+		//alert("머리!!");
+		answerChk[1] = true;
+		answerCnt++;
+		$('.pointHair').fadeIn();
+		$('.pointHair').css("display", "block");
+		$('.pointHair').css("z-index", "10000");
+		$('.score').html(answerCnt);
+		if (answerCnt == maxAnswer) {
+			setTimeout(function() {
+				alert('스테이지 클리어!!');
+				location.href = 'step02.html';
+			}, 500);
+		}
+		isAnswer = true;
+	};
+	var clickButton = function() {
+		// alert("단추!!");
+		answerChk[2] = true;
+		answerCnt++;
+		$('.pointButton').fadeIn();
+		$('.pointButton').css("display", "block");
+		$('.pointButton').css("z-index", "10000");
+		$('.score').html(answerCnt);
+		if (answerCnt == maxAnswer) {
+			setTimeout(function() {
+				alert('스테이지 클리어!!');
+				location.href = 'step02.html';
+			}, 500);
+		}
+		isAnswer = true;
+	};
+	var clickChk = function() {
+		if (!isAnswer) {
+			console.log(clickX);
+			console.log(clickY);
+			$(".frame").append(
+					"<img class='point' style='display:block; top:"
+							+ (clickY - 25) + "px; left:" + (clickX - 25)
+							+ "px;' src='images/ui/img_bad.png'>")
+			$('.point').css("z-index", "10000");
+			$('.point').fadeOut();
+		}
+		isAnswer = false;
+	};
+</script>
+</head>
+<body onload="move();">
+
+	<!-- Wrap -->
+	<div id="wrap">
+		<!-- Frame -->
+
+		<div class="frame">
+			<a href="#"> <img class="step_img"
+				src="images/step/img_step01.jpg" alt="첫번째 스텝" usemap="#a1"> <map
+					id="a1" name="a1">
+					<area shape="rect" coords="82,64,106,81" alt="울라프코"
+						onclick="clickNose()">
+					<area shape="rect" coords="148,169,163,207" alt="머리"
+						onclick="clickHair()">
+					<area shape="rect" coords="71,216,82,228" alt="단추"
+						onclick="clickButton()">
+
+					<area shape="rect" coords="393,55,435,88" alt="울라프코"
+						onclick="clickNose()">
+					<area shape="rect" coords="470,145,484,231" alt="머리"
+						onclick="clickHair()">
+					<area shape="rect" coords="379,210,422,247" alt="단추"
+						onclick="clickButton()">
+
+				</map>
+			</a> <img class="pointNose"
+				style="display: none; top: 45px; left: 380px;"
+				src="images/ui/img_good.png" alt="good" /> <img class="pointNose"
+				style="display: none; top: 45px; left: 60px;"
+				src="images/ui/img_good.png" alt="good" /> <img class="pointHair"
+				style="display: none; top: 155px; left: 440px;"
+				src="images/ui/img_good.png" alt="good" /> <img class="pointHair"
+				style="display: none; top: 155px; left: 110px;"
+				src="images/ui/img_good.png" alt="good" /> <img class="pointButton"
+				style="display: none; top: 190px; left: 370px;"
+				src="images/ui/img_good.png" alt="good" /> <img class="pointButton"
+				style="display: none; top: 190px; left: 42px;"
+				src="images/ui/img_good.png" alt="good" />
+
+			<!-- 일시정지 -->
+			<img class="stopCurtain" style="display: none; top: 0px; left: 0px;"
+				src="images/ui/stop_curtain.png" alt="stop_curtain" />
+		</div>
+		<hr />
+		<!--// Frame -->
+		<!-- Ui Area -->
+		<div class="ui_area">
+			<!-- Time Line -->
+			<div id="myProgress" class="time_line">
+				<p id="myBar" class="gauge"></p>
+			</div>
+			<hr />
+			<!--// Time Line -->
+			<!-- Stop Pause -->
+			<div class="btn_control">
+				<button class="stop" type="button" onclick="stop()">정지</button>
+				<button class="play" type="button" onclick="move()">플레이</button>
+			</div>
+			<hr />
+			<!--//Stop Pause  -->
+			<!-- Score State -->
+			<div class="score_state">
+				<span class="score">0</span><span>3</span>
+			</div>
+			<hr />
+			<!--// Score State -->
+			<!-- Hint -->
+			<div class="hint">
+				<a href="#hint" onclick="hintA()"><span>Hint</span><span class="hintNum">1</span></a>
+			</div>
+			<!--// Hint -->
+		</div>
+		<hr />
+		<!--// Ui Area -->
+	</div>
+	<!--// Wrap -->
+
+</body>
+</html>

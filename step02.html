@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>디즈니 틀린그림 찾기 Step2</title>
+<link rel="stylesheet" type="text/css" href="css/global.css" media="screen" />
+<style>
+#wrap .frame img.pointEye {position:absolute; top:0px; left:0px; z-index:100}
+#wrap .frame img.pointHair2 {position:absolute; top:0px; left:0px; z-index:100}
+#wrap .frame img.pointEar {position:absolute; top:0px; left:0px; z-index:100}
+#wrap .frame img.pointHorn {position:absolute; top:0px; left:0px; z-index:100}
+#wrap .frame img.stopCurtain {position:absolute; top:0px; left:0px; z-index:100}
+</style>
+<script src="js/jquery-1.10.2.min.js"></script>
+<script src="js/game.js" type="javascript"></script>
+<script>
+  /* Time Prograss Bar */
+	var setId;
+	var width = 1;
+		/* Play */
+	function move() {
+	    var elem = document.getElementById("myBar"); 
+	    
+	    setId = setInterval(frame, 100);
+	    
+	    function frame() {
+	        if (width < 100) {
+	        	 width++; 
+		         elem.style.width = width + '%';
+		         
+	            
+	        } else if(width >= 100) {
+	        	clearInterval(setId);
+	            alert("Time out!!!");
+                location.href='index.html';
+	        }
+	    }
+	    $('.stopCurtain').css("z-index", "10000");
+	    $('.stopCurtain').fadeOut();
+	}
+		/* Stop */
+	function stop(){
+		clearInterval(setId);
+		$('.stopCurtain').fadeIn();
+	    $('.stopCurtain').css("display", "block"); 
+	    $('.stopCurtain').css("z-index", "20000");
+	}
+		
+	//힌트 
+	function hintA() {
+		if (hint >= 1) {
+			if (answerChk[0] == null) {
+				answerChk[0] = true;
+				answerCnt++;
+				$('.pointEye').fadeIn();
+				$('.pointEye').css("display", "block");
+				$('.pointEye').css("z-index", "10000");
+				$('.score').html(answerCnt);
+				if (answerCnt == maxAnswer) {
+					setTimeout(function() {
+						alert('스테이지 클리어!!');
+						location.href = 'step03.html';
+					}, 500);
+				}
+				isAnswer = true;
+				--hint;
+				$('.hintNum').html(hint);
+			} else if (answerChk[1] == null) {
+				answerChk[1] = true;
+				answerCnt++;
+				$('.pointHair2').fadeIn();
+				$('.pointHair2').css("display", "block");
+				$('.pointHair2').css("z-index", "10000");
+				$('.score').html(answerCnt);
+				if (answerCnt == maxAnswer) {
+					setTimeout(function() {
+						alert('스테이지 클리어!!');
+						location.href = 'step03.html';
+					}, 500);
+				}
+				isAnswer = true;
+				--hint;
+				$('.hintNum').html(hint);
+			} else if (answerChk[2] == null) {
+				answerChk[2] = true;
+				answerCnt++;
+				$('.pointEar').fadeIn();
+				$('.pointEar').css("display", "block");
+				$('.pointEar').css("z-index", "10000");
+				$('.score').html(answerCnt);
+				if (answerCnt == maxAnswer) {
+					setTimeout(function() {
+						alert('스테이지 클리어!!');
+						location.href = 'step03.html';
+					}, 500);
+				}
+				isAnswer = true;
+				--hint;
+				$('.hintNum').html(hint);
+			}
+			else if (answerChk[3] == null) {
+				answerChk[3] = true;
+				answerCnt++;
+				$('.pointHorn').fadeIn();
+				$('.pointHorn').css("display", "block");
+				$('.pointHorn').css("z-index", "10000");
+				$('.score').html(answerCnt);
+				if (answerCnt == maxAnswer) {
+					setTimeout(function() {
+						alert('스테이지 클리어!!');
+						location.href = 'step03.html';
+					}, 500);
+				}
+				isAnswer = true;
+				--hint;
+				$('.hintNum').html(hint);
+			}
+		}
+
+	}		
+   /* 변 수 선 언  */
+   //var time = 0; // 제한시간 변수 생성
+   var hint = 1; // 힌트  상수 생성 1로 고정
+   var answerCnt = 0; // 정답 수를 체크하기 위한 변수
+   var answerChk = new Array(); // 이미 맞춘것과 안맞춘것을 구분하기 위한 boolean값 배열(이걸 활용해서 힌트를 줄 예정)
+   const maxAnswer = 4;
+   /*
+      2차배열 선언 예시
+      answerStage01[0][0] = 30; // x축 왼쪽
+      answerStage01[0][1] = 60; // x축 오른쪽
+      answerStage01[0][2] = 30; // y축 아래쪽
+      answerStage01[0][3] = 60; // y축 위쪽
+   */
+   var clickX = 0;
+   var clickY = 0;
+   
+   var isAnswer = false;
+   
+ $(function(){ //----좌표값찾기----- 
+   var area = $('.frame');
+   area.click(function (event) {
+      x = clickX = event.offsetX;
+      y = clickY = event.offsetY;
+      clickChk();
+    //alert('x좌표:' + x + ', y좌표:' + y);
+   });
+       });
+    
+    
+   var clickEye = function(){
+    //alert("눈!!");
+    answerChk[0] = true;
+    answerCnt++;
+    $('.pointEye').fadeIn();
+    $('.pointEye').css("display", "block"); 
+    $('.pointEye').css("z-index", "10000");
+    $('.score').html(answerCnt);
+    if(answerCnt == maxAnswer){
+       	setTimeout(function() {
+        alert('스테이지 클리어!!');
+      	location.href='step03.html';
+       	  }, 500);   
+   }
+       isAnswer = true;
+   };
+   var clickHair2 = function(){
+    //alert("머리!!");
+    answerChk[1] = true;
+    answerCnt++;
+    $('.pointHair2').fadeIn();
+    $('.pointHair2').css("display", "block"); 
+    $('.pointHair2').css("z-index", "10000");
+    $('.score').html(answerCnt);
+    if(answerCnt == maxAnswer){
+       	setTimeout(function() {
+        alert('스테이지 클리어!!');
+      	location.href='step03.html';
+       	  }, 500);      
+   }
+       isAnswer = true;
+   }
+   var clickEar = function(){
+    //alert("귀!!");
+    answerChk[2] = true;
+    answerCnt++;
+    $('.pointEar').fadeIn();
+    $('.pointEar').css("display", "block"); 
+    $('.pointEar').css("z-index", "10000");
+    $('.score').html(answerCnt);
+    if(answerCnt == maxAnswer){
+       	setTimeout(function() {
+        alert('스테이지 클리어!!');
+      	location.href='step03.html';
+       	  }, 500);         
+   }
+       isAnswer = true;
+   }
+   var clickHorn = function(){
+    //alert("뿔!!");
+    answerChk[3] = true;
+    answerCnt++;
+    $('.pointHorn').fadeIn();
+    $('.pointHorn').css("display", "block"); 
+    $('.pointHorn').css("z-index", "10000");
+    $('.score').html(answerCnt);
+    if(answerCnt == maxAnswer){
+       	setTimeout(function() {
+        alert('스테이지 클리어!!');
+      	location.href='step03.html';
+       	  }, 500);     
+   }
+       isAnswer = true;
+   };
+    var clickChk = function(){
+    if(!isAnswer){
+    //console.log(clickX);
+    //console.log(clickY);
+    $(".frame").append("<img class='point' style='display:block; top:" + (clickY-25) + "px; left:" + (clickX-25) + "px; 'src='images/ui/img_bad.png'>")
+    $('.point').css("z-index", "10000");
+    $('.point').fadeOut(); 
+    }
+      isAnswer = false;
+   };
+</script>
+</head>
+<body onload="move();">
+
+<!-- Wrap -->
+<div id="wrap">
+	<!-- Frame -->
+	<div class="frame">
+      <a href="#">
+      <img class="step_img" src="images/step/img_step02.jpg" alt="두번째 스텝" usemap="#a1">
+      <map id="a1" name="a1">
+      <area shape="rect" coords="174,108,251,144" alt="눈"
+      onclick="clickEye()">
+      <area shape="rect" coords="102,74,143,98" alt="머리" 
+      onclick="clickHair2()">
+      <area shape="rect" coords="260,93,306,146" alt="귀" 
+      onclick="clickEar()">
+      <area shape="rect" coords="91,1,138,31" alt="뿔" 
+      onclick="clickHorn()">
+      
+      <area shape="rect" coords="500,114,572,143" alt="눈"
+      onclick="clickEye()">
+      <area shape="rect" coords="405,78,457,108" alt="머리" 
+      onclick="clickHair2()">
+      <area shape="rect" coords="577,86,617,140" alt="귀" 
+      onclick="clickEar()">
+      <area shape="rect" coords="378,2,456,39" alt="뿔" 
+      onclick="clickHorn()">
+      </map>
+      </a>
+<!--      정답표시좌표    -->
+      <img class="pointEye" style="display:none; top:100px; left:500px;" src="images/ui/img_good.png" alt="good"/>
+      <img class="pointEye" style="display:none; top:100px; left:180px;" src="images/ui/img_good.png" alt="good"/>
+      <img class="pointHair2" style="display:none; top:60px; left:400px;" src="images/ui/img_good.png" alt="good"/>
+      <img class="pointHair2" style="display:none; top:60px; left:80px;" src="images/ui/img_good.png" alt="good"/>
+      <img class="pointEar" style="display:none; top:90px; left:560px;" src="images/ui/img_good.png" alt="good"/>
+      <img class="pointEar" style="display:none; top:90px; left:240px;" src="images/ui/img_good.png" alt="good"/>
+      <img class="pointHorn" style="display:none; top:0px; left:380px;" src="images/ui/img_good.png" alt="good"/>
+      <img class="pointHorn" style="display:none; top:0px; left:60px;" src="images/ui/img_good.png" alt="good"/>
+	 
+	 <!-- 일시정지 -->
+  	  <img class="stopCurtain" style="display:none; top:0px; left:0px;" src="images/ui/stop_curtain.png" alt="stop_curtain"/>
+	</div>
+	<hr />
+	<!--// Frame -->
+	<!-- Ui Area -->
+	<div class="ui_area">		
+		<!-- Time Line -->
+		<div class="time_line">
+		   <p id="myBar" class="gauge"></p>
+		</div>
+		<hr />
+		<!--// Time Line -->
+		
+		<!-- Stop Pause -->
+      <div class="btn_control">
+         <button class="stop" type="button" onclick="stop()">정지</button>
+         <button class="play" type="button" onclick="move()">플레이</button>
+      </div>
+      <hr />
+      <!--//Stop Pause  -->
+		<!-- Score State -->
+		<div class="score_state">
+			<span class="score">0</span><span>4</span>
+		</div>
+		<hr />
+		<!--// Score State -->
+		<!-- Hint -->
+		<div class="hint">
+			<a href="#hint" onclick="hintA()"><span>Hint</span><span class="hintNum">1</span></a>
+		</div>
+		<!--// Hint -->
+	</div>
+	<hr />
+	<!--// Ui Area -->
+</div>
+<!--// Wrap -->
+
+</body>
+</html>

@@ -1,0 +1,66 @@
+@charset "UTF-8";
+
+/* Type Selector */
+html {filter:x-expression(document.execCommand("BackgroundImageCache", false, true))}
+
+body, p, h1, h2, h3, h4, h5, h6, ul, ol, li, dl, dt, dd, table, th, td, form, fieldset, legend, input, textarea, button {margin:0px; padding:0px; -webkit-text-size-adjust:none}
+body, input, textarea, select, table, button {font-size:14px; line-height:1.25em}
+body {word-wrap:break-word; word-break:break-all; background:#3a3a3a}
+
+img, fieldset, button {border:none}
+/*
+img {background:transparent;
+	-ms-interpolation-mode:bicubic;
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#00FFFFFF,endColorstr=#00FFFFFF);     
+	zoom:1} 
+*/ /* IE6 & 7 */
+hr, button img {display:none}
+li {list-style:none}
+a {color:#666; text-decoration:none}
+a:hover, a:active, a:focus {color:#00c0ff}
+a:focus {position:relative; outline:3px solid #00c0ff; z-index:500}
+textarea {overflow:auto; resize:none} 
+legend,
+.blind, 
+caption span {position:absolute; left:-3000px}
+caption {display:none}
+.png24 {tmp:expression(setPng24(this))}
+
+address, article, aside, figure, footer, header, main, menu, nav, section {display:block}
+[hidden], command, datalist, menu[type=context], rp, source {display:none}
+
+/* Layout */
+#wrap {position:absolute; top:50%; left:50%; margin:-180px 0px 0px -320px; width:640px; height:360px}
+	/* Frame */
+#wrap .frame {position:relative; width:640px; height:300px; overflow:hidden}
+#wrap .frame img.step {position:relative; top:0px; left:0px; z-index:10}
+#wrap .frame img.point {position:absolute; top:0px; left:0px; z-index:100}
+
+	/* UI Area */
+#wrap .ui_area {position:relative; height:60px; background:url('../images/ui/bg_uiArea.jpg') repeat-x}
+		/* Time Line */
+#wrap .ui_area .time_line {margin-top:2px; width:100%; height:7px}
+#wrap .ui_area .time_line p.gauge {width:1%; height:7px; background:0px 2px url('../images/ui/bg_gauge.jpg') repeat-x}
+		/* Stop Pause */
+#wrap .ui_area .btn_control {margin:10px 0px 0px 13px; float:left}
+#wrap .ui_area .btn_control button[type="button"] {width:36px; height:36px; vertical-align:middle; overflow:hidden; text-indent:-500px; cursor:pointer; transition:0.5s all}
+#wrap .ui_area .btn_control button.stop {background:url('../images/ui/btn_stop.png') no-repeat}
+#wrap .ui_area .btn_control button.stop:hover,
+#wrap .ui_area .btn_control button.stop:active,
+#wrap .ui_area .btn_control button.stop:focus,
+#wrap .ui_area .btn_control button.stop.selected {background:url('../images/ui/btn_stopHover.png') no-repeat}
+#wrap .ui_area .btn_control button.play {background:url('../images/ui/btn_play.png') no-repeat}
+#wrap .ui_area .btn_control button.play:hover,
+#wrap .ui_area .btn_control button.play:active,
+#wrap .ui_area .btn_control button.play:focus,
+#wrap .ui_area .btn_control button.play.selected {background:url('../images/ui/btn_playHover.png') no-repeat}
+		/* Score State */
+#wrap .ui_area .score_state {position:relative; display:inline; margin:6px 0px 0px 200px; width:66px; height:47px; float:left; background:url('../images/ui/bg_state.jpg') no-repeat}
+#wrap .ui_area .score_state span {position:absolute; top:24px; left:46px; font-family:"Malgun Gothic"; font-size:20px; color:#fff; }
+#wrap .ui_area .score_state span:first-child {top:20px; left:16px; font-size:26px; font-weight:bold}
+		/* Hint */
+#wrap .ui_area .hint {display:inline; margin:4px 4px 0px 0px; float:right}
+#wrap .ui_area .hint a {position:relative; display:block; width:57px; height:45px; overflow:hidden; background:url('../images/ui/btn_hint.jpg') no-repeat}
+#wrap .ui_area .hint a span {position:absolute; bottom:3px; right:7px; font-family:"Malgun Gothic"; font-weight:bold; font-size:13px; color:#fbf525; text-shadow:1px 1px 1px #000}
+#wrap .ui_area .hint a span:first-child {text-indent:-3000px}
+	
